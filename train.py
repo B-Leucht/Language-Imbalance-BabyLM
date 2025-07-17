@@ -15,7 +15,7 @@ from tokenizers import ByteLevelBPETokenizer
 from huggingface_hub import HfFolder
 
 
-def train_tokenizer(dataset, vocab_size=30_000, min_frequency=2, tokenizer_dir="tokenizer"):
+def train_tokenizer(dataset, tokenizer_dir, vocab_size, min_frequency=2):
     texts = dataset["text"]
     tokenizer_dir = Path(tokenizer_dir)
     tokenizer_dir.mkdir(parents=True, exist_ok=True)
@@ -68,7 +68,7 @@ def main():
     parser.add_argument("--model_name", type=str, required=True, help="Hugging Face model repo name (e.g., user/model)")
     parser.add_argument("--vocab_size", type=int, default=30000, help="Vocabulary size for tokenizer")
     parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs")
-    parser.add_argument("--batch_size", type=int, default=4, help="Training batch size per device")
+    parser.add_argument("--batch_size", type=int, default=64, help="Training batch size per device")
     parser.add_argument("--max_length", type=int, default=512, help="Max sequence length")
     parser.add_argument("--push_to_hub", action="store_true", help="Push model to Hugging Face Hub")
 
@@ -78,7 +78,7 @@ def main():
     dataset = load_dataset(args.dataset, split="train")
 
     print("🔡 Training BPE tokenizer...")
-    tokenizer = train_tokenizer(dataset, vocab_size=args.vocab_size)
+    tokenizer = train_tokenizer(dataset, args.output_dir, args.vocab_size)
     tokenizer.save_pretrained(args.output_dir)
 
     print("🧹 Tokenizing dataset...")
