@@ -2,7 +2,7 @@ import os
 import argparse
 from dotenv import load_dotenv
 from pathlib import Path
-from datasets import load_dataset
+from datasets import load_dataset, concatenate_datasets
 from transformers import (
     AutoConfig,
     AutoModelForCausalLM,
@@ -13,20 +13,26 @@ from transformers import (
 )
 from tokenizers import ByteLevelBPETokenizer
 from huggingface_hub import HfFolder
+import torch
 
 
-def train_tokenizer(dataset, tokenizer_dir, vocab_size, min_frequency=2):
+torch.set_float32_matmul_precision('high')
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+
+def train_tokenizer(dataset, tokenizer_dir, vocab_size, min_frequency=2, save_training_text=False):
     texts = dataset["text"]
     tokenizer_dir = Path(tokenizer_dir)
     tokenizer_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(tokenizer_dir / "training_text.txt", "w", encoding="utf-8") as f:
-        for line in texts:
-            f.write(line.strip() + "\n")
-
+    def dataset_generator():
+        for line in dataset["text"]:
+            if line.strip():
+                yield line
+    
     tokenizer = ByteLevelBPETokenizer()
-    tokenizer.train(
-        files=str(tokenizer_dir / "training_text.txt"),
+    tokenizer.train_from_iterator(
+        dataset_generator(),
         vocab_size=vocab_size,
         min_frequency=min_frequency,
         special_tokens=["<s>", "<pad>", "</s>", "<unk>", "<mask>"]
@@ -70,12 +76,21 @@ def main():
     parser.add_argument("--epochs", type=int, default=3, help="Number of training epochs")
     parser.add_argument("--batch_size", type=int, default=64, help="Training batch size per device")
     parser.add_argument("--max_length", type=int, default=512, help="Max sequence length")
+    parser.add_argument("--learning_rate", type=float, default=1e-04, help="Learning rate")
     parser.add_argument("--push_to_hub", action="store_true", help="Push model to Hugging Face Hub")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed")
 
     args = parser.parse_args()
 
     print("📥 Loading dataset...")
-    dataset = load_dataset(args.dataset, split="train")
+    if " " in args.dataset:
+        datasets = []
+        for dataset_name in args.dataset.split():
+            dataset = load_dataset(dataset_name, split="train")
+            datasets.append(dataset)
+        dataset = concatenate_datasets(datasets)
+    else:
+        dataset = load_dataset(args.dataset, split="train")
 
     print("🔡 Training BPE tokenizer...")
     tokenizer = train_tokenizer(dataset, args.output_dir, args.vocab_size)
@@ -95,22 +110,33 @@ def main():
     model = AutoModelForCausalLM.from_config(config)
 
     data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
+    print(args)
     training_args = TrainingArguments(
+        bf16=True,
+        dataloader_num_workers=4,
+        gradient_accumulation_steps=1,
+        hub_model_id=args.model_name,
+        learning_rate=args.learning_rate,
+        logging_dir=os.path.join(args.output_dir, "logs"),
+        num_train_epochs=args.epochs,
         output_dir=args.output_dir,
         per_device_train_batch_size=args.batch_size,
-        num_train_epochs=args.epochs,
-        logging_dir=os.path.join(args.output_dir, "logs"),
-        save_steps=500,
-        save_total_limit=2,
         push_to_hub=args.push_to_hub,
-        hub_model_id=args.model_name,
         remove_unused_columns=False,
+        save_strategy="no",
+        logging_strategy="epoch",
+        eval_strategy="epoch",
     )
+
+    splits = tokenized_dataset.train_test_split(test_size=0.05, seed=args.seed)
+    train_dataset = splits["train"]
+    eval_dataset = splits["test"]
 
     trainer = Trainer(
         model=model,
         args=training_args,
-        train_dataset=tokenized_dataset,
+        train_dataset=train_dataset,
+        eval_dataset=eval_dataset,
         tokenizer=tokenizer,
         data_collator=data_collator,
     )

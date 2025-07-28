@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=babylm
-#SBATCH -t 9:00:00
+#SBATCH -t 24:00:00
 #SBATCH -N 1
 #SBATCH -p gpu_a100
 #SBATCH --gpus=1
