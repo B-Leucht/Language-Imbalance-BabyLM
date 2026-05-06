@@ -113,7 +113,6 @@ def main():
     parser.add_argument("--learning_rate", type=float, default=1e-04, help="Learning rate")
     parser.add_argument("--push_to_hub", action="store_true", help="Push model to HuggingFace Hub")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
-    # ─── CHANGE 3: Added ratio and max_words arguments ─────────────────────────
     parser.add_argument("--ratios", type=float, nargs="+", default=None,
                         help="Sampling ratios per dataset e.g. 0.9 0.1 for 90/10 split")
     parser.add_argument("--max_words", type=int, default=None,
@@ -123,7 +122,6 @@ def main():
 
     args = parser.parse_args()
 
-    # ─── CHANGE 4: Dataset loading with ratio sampling and word cap ─────────────
     print("📥 Loading datasets...")
     raw_datasets = {}
     for dataset_name in args.dataset:
@@ -166,7 +164,6 @@ def main():
 
     print(f"Total training rows after sampling: {len(dataset)}")
 
-    # ─── CHANGE 5: Tokenizer — load existing or train new ──────────────────────
     if args.tokenizer_dir and Path(args.tokenizer_dir).exists():
         print(f"🔡 Loading existing tokenizer from {args.tokenizer_dir}...")
         tokenizer = PreTrainedTokenizerFast.from_pretrained(args.tokenizer_dir)
@@ -181,8 +178,6 @@ def main():
         batched=True,
         remove_columns=dataset.column_names,
     )
-    tokenized_dataset = tokenized_dataset.select(range(min(1000, len(tokenized_dataset))))
-
     print("🔧 Loading model config and initializing model...")
     config = AutoConfig.from_pretrained(args.config)
     config.vocab_size = tokenizer.vocab_size
@@ -193,8 +188,7 @@ def main():
     print(args)
 
     training_args = TrainingArguments(
-        bf16=False,
-        use_mps_device=True,
+        bf16=torch.cuda.is_available(),
         dataloader_num_workers=4,
         gradient_accumulation_steps=1,
         hub_model_id=args.model_name,
