@@ -213,7 +213,7 @@ def main():
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
-        processing_class=tokenizer,
+        tokenizer=tokenizer,
         data_collator=data_collator,
     )
 
