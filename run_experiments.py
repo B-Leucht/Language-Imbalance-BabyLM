@@ -26,7 +26,7 @@ EVAL_TO_LANG = {
     "babylm-ind": "ind",
 }
 
-CONFIG        = "./small_config.json"
+CONFIG        = "./tiny_config.json"
 TOKENIZER_DIR = "./shared_tokenizer"
 MAX_LENGTH    = 128
 SEED          = 42
@@ -40,9 +40,9 @@ EPOCHS_PER_BUDGET = {
     10_000_000: 2,
 }
 
-SCALING_BUDGETS = [100_000, 500_000, 1_000_000, 5_000_000, 10_000_000]
+SCALING_BUDGETS = [1_000_000, 5_000_000, 10_000_000, 50_000_000, 100_000_000]
 
-BILINGUAL_BUDGET = 10_000_000
+BILINGUAL_BUDGET = 100_000_000
 BILINGUAL_EPOCHS = EPOCHS_PER_BUDGET[BILINGUAL_BUDGET]
 BILINGUAL_RATIOS = [
     ("eng", "dut", [0.5, 0.5]),
