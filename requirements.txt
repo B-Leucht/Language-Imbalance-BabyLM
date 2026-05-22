@@ -1,7 +1,10 @@
 accelerate>=1.4.0
 datasets>=2.14.7
-dotenv
+python-dotenv
 torch>=2.4.1
 tokenizers>=0.21.0
 transformers>=4.53.0
-protobuf
+umap-learn
+matplotlib
+pandas
+numpy
