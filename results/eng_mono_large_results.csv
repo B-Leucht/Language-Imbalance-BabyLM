@@ -1,0 +1,6 @@
+No.,Config,Lang(s),Ratio,Tokens,Status,Person,Time in s,Cost,Perplexity,Output dir,Log
+1,large,eng,mono,1M,done,Yao,453.22,,541.22,outputs/mono_eng_1m_large,logs/mono_eng_1m_large.log
+2,large,eng,mono,3M,done,Yao,1471.43,,282.41,outputs/mono_eng_3m_large,logs/mono_eng_3m_large.log
+3,large,eng,mono,10M,done,Yao,5035.6,,118.61,outputs/mono_eng_10m_large,logs/mono_eng_10m_large.log
+4,large,eng,mono,30M,done,Yao,15661.03,,58.65,outputs/mono_eng_30m_large,logs/mono_eng_30m_large.log
+5,large,eng,mono,50M,done,Yao,29626.84,,46.67,outputs/mono_eng_50m_large,logs/mono_eng_50m_large.log
