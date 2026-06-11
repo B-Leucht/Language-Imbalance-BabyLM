@@ -1,2 +1,25 @@
 .venv/
 results/
+
+# Model output directories (weights are large binaries)
+mono-*/
+bi-*/
+tri-*/
+param-*/
+
+# Runtime logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Environment
+.env
