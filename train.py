@@ -167,8 +167,35 @@ def main():
         default=None,
         help="Load existing tokenizer from this dir instead of retraining",
     )
+    parser.add_argument(
+        "--warmup_ratio",
+        type=float,
+        default=0.0,
+        help="Fraction of training steps used for linear LR warmup",
+    )
+    parser.add_argument(
+        "--weight_decay",
+        type=float,
+        default=0.0,
+        help="AdamW weight decay",
+    )
+    parser.add_argument(
+        "--report_to",
+        type=str,
+        default="none",
+        help="Reporting backend: 'wandb', 'tensorboard', or 'none'",
+    )
+    parser.add_argument(
+        "--wandb_run_name",
+        type=str,
+        default=None,
+        help="W&B run name (overrides WANDB_RUN_NAME env var)",
+    )
 
     args = parser.parse_args()
+
+    if args.wandb_run_name:
+        os.environ["WANDB_RUN_NAME"] = args.wandb_run_name
 
     print("📥 Loading datasets...")
     raw_datasets = {}
@@ -258,6 +285,9 @@ def main():
         logging_strategy="epoch",
         eval_strategy="no",
         seed=args.seed,
+        warmup_ratio=args.warmup_ratio,
+        weight_decay=args.weight_decay,
+        report_to=args.report_to,
     )
 
     print("🧹 Tokenizing eval sets...")
@@ -283,7 +313,16 @@ def main():
     tokenizer.save_pretrained(args.output_dir)
 
     print("Running per-language evaluation...")
-    evaluate_per_language(trainer, tokenized_per_lang_eval)
+    ppl_results = evaluate_per_language(trainer, tokenized_per_lang_eval)
+
+    if "wandb" in args.report_to:
+        try:
+            import wandb
+            if wandb.run is not None:
+                wandb.log({f"perplexity/{lang}": v["perplexity"] for lang, v in ppl_results.items()})
+                wandb.log({f"loss/{lang}": v["loss"] for lang, v in ppl_results.items()})
+        except ImportError:
+            print("wandb not installed; skipping W&B perplexity logging")
 
     if args.push_to_hub:
         print("☁️ Pushing to Hugging Face Hub...")
