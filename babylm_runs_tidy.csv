@@ -1,0 +1,99 @@
+config,lang,ratio,tokens,date,person,time_s,cost,eval_lang,perplexity,epochs,notes
+tiny,eng,mono,1M,26 may,Yao,73.28,,eng,1903.65,3,visualize the structure; retraining the tiny/small/large in mono-eng
+tiny,eng,mono,3M,26 may,Yao,203.28,,eng,715.42,3,
+tiny,eng,mono,10M,26 may,Yao,584.34,,eng,312.64,3,
+tiny,eng,mono,30M,26 may,Yao,1648.02,,eng,149.75,3,
+tiny,eng,mono,50M,26 may,Yao,2779.69,,eng,111.57,3,
+tiny,nld,mono,1M,22 may,judith,35.436,,nld,1859.27,3,
+tiny,nld,mono,3M,22 may,judith,101.400,,nld,816.13,3,
+tiny,nld,mono,10M,22 may,judith,333.955,,nld,387.69,3,
+tiny,nld,mono,30M,22 may,judith,1002.542,,nld,177.10,3,
+tiny,nld,mono,50M,22 may,judith,1644.271,,nld,128.56,3,
+tiny,ind,mono,1M,22 may,Ada,34.815,,ind,1381.99,3,
+tiny,ind,mono,3M,22 may,Ada,159.221,,ind,401.16,3,
+tiny,ind,mono,10M,22 may,Ada,319.259,,ind,272.93,3,
+tiny,ind,mono,30M,22 may,Ada,962.409,all above $1.75,ind,143.79,3,
+tiny,ind,mono,50M,23 may,Ada,1184.354,,ind,111.11,3,with GPU A10G ($1.12 / hour)
+tiny,eng-nld,90-10,10M,24 may,judith,324,,eng,330.43,3,
+tiny,eng-nld,90-10,10M,24 may,judith,324,,nld,875.20,3,
+tiny,eng-nld,70-30,10M,24 may,judith,364,,eng,361.58,3,
+tiny,eng-nld,70-30,10M,24 may,judith,364,,nld,620.95,3,
+tiny,eng-nld,50-50,10M,24 may,judith,363,,eng,415.57,3,
+tiny,eng-nld,50-50,10M,24 may,judith,363,,nld,517.74,3,
+tiny,eng-nld,90-10,50M,1 june,judith,1701,3.30$ together,eng,115.24,3,A10G
+tiny,eng-nld,90-10,50M,1 june,judith,1701,3.30$ together,nld,328.35,3,A10G
+tiny,eng-nld,70-30,50M,1 june,judith,1700,3.30$ together,eng,126.38,3,L4
+tiny,eng-nld,70-30,50M,1 june,judith,1700,3.30$ together,nld,217.93,3,L4
+tiny,eng-nld,50-50,50M,1 june,judith,1479,3.30$ together,eng,142.23,3,L4
+tiny,eng-nld,50-50,50M,1 june,judith,1479,3.30$ together,nld,171.38,3,L4
+tiny,eng-ind,90-10,50M,1 june,Ada,986.7403,,eng,115.06,3,GPU A100-40GB
+tiny,eng-ind,90-10,50M,1 june,Ada,986.7403,,ind,239.43,3,GPU A100-40GB
+tiny,eng-ind,70-30,50M,1 june,Ada,i forgot to copy,,eng,125.47,3,GPU A100-40GB
+tiny,eng-ind,70-30,50M,1 june,Ada,i forgot to copy,,ind,169.64,3,GPU A100-40GB
+tiny,eng-ind,50-50,50M,26may,Ada,1161.4748,,eng,142.37,3,GPU A100-40GB
+tiny,eng-ind,50-50,50M,26may,Ada,1161.4748,,ind,142.41,3,GPU A100-40GB
+small,eng,mono,1M,26 may,Yao,123.64,,eng,660.73,3,
+small,eng,mono,3M,26 may,Yao,352.38,,eng,332.29,3,
+small,eng,mono,10M,26 may,Yao,1358.71,,eng,146.50,3,
+small,eng,mono,30M,26 may,Yao,4091.05,,eng,75.18,3,
+small,eng,mono,50M,26 may,Yao,6271.96,,eng,59.67,3,
+small,nld,mono,1M,22 may,judith,42.965,,nld,729.31,3,
+small,nld,mono,3M,22 may,judith,121.601,,nld,391.85,3,
+small,nld,mono,10M,22 may,judith,405.689,,nld,160.89,3,
+small,nld,mono,30M,22 may,judith,1211.421,,nld,70.65,3,
+small,nld,mono,50M,22 may,judith,2023.3919,all above 6.23$,nld,55.56,3,
+small,ind,mono,1M,23 may,Ada,36.966,,ind,466.41,3,
+small,ind,mono,3M,23 may,Ada,108.021,,ind,256.51,3,
+small,ind,mono,10M,23 may,Ada,364.546,,ind,127.87,3,
+small,ind,mono,30M,23 may,Ada,1088.978,all above $0.80,ind,74.70,3,
+small,ind,mono,50M,24 may,Ada,1456.641,$0.60,ind,62.43,3,$1.5/hr=(with GPU A10G ($1.12 / h) + 16 GiB RAM
+small,eng-nld,90-10,50M,1 june,judith,2009,2.29$ together,eng,60.89,3,L4
+small,eng-nld,90-10,50M,1 june,judith,2009,2.29$ together,nld,147.69,3,L4
+small,eng-nld,70-30,50M,1 june,judith,2005,2.29$ together,eng,65.29,3,L4
+small,eng-nld,70-30,50M,1 june,judith,2005,2.29$ together,nld,95.36,3,L4
+small,eng-nld,50-50,50M,1 june,judith,2009,2.29$ together,eng,72.88,3,L4
+small,eng-nld,50-50,50M,1 june,judith,2009,2.29$ together,nld,73.62,3,L4
+small,eng-ind,90-10,50M,1 june,Ada,731.7736,,eng,60.67,3,GPU A100-40GB
+small,eng-ind,90-10,50M,1 june,Ada,731.7736,,ind,124.80,3,GPU A100-40GB
+small,eng-ind,70-30,50M,1 june,Ada,745.1276,,eng,65.53,3,GPU A100-40GB
+small,eng-ind,70-30,50M,1 june,Ada,745.1276,,ind,90.35,3,GPU A100-40GB
+small,eng-ind,50-50,50M,1 june,Ada,732.9258,,eng,72.86,3,GPU A100-40GB
+small,eng-ind,50-50,50M,1 june,Ada,732.9258,,ind,77.62,3,GPU A100-40GB
+large,eng,mono,1M,27 may,Yao,453.22,,eng,541.22,3,
+large,eng,mono,3M,27 may,Yao,1471.43,,eng,282.41,3,
+large,eng,mono,10M,27 may,Yao,5035.60,,eng,118.61,3,
+large,eng,mono,30M,27 may,Yao,15661.03,,eng,58.65,3,
+large,eng,mono,50M,27 may,Yao,29626.84,,eng,46.67,3,
+large,nld,mono,1M,22 may,judith,105.977,,nld,639.13,3,
+large,nld,mono,3M,22 may,judith,321.155,,nld,308.50,3,
+large,nld,mono,10M,22 may,judith,1079.68,,nld,114.06,3,
+large,nld,mono,30M,22 may,judith,3276.322,,nld,48.78,3,
+large,nld,mono,50M,22 may,judith,5464.970,,nld,39.58,3,
+large,ind,mono,1M,23 may,Ada,121.267,,ind,405.34,3,
+large,ind,mono,3M,23 may,Ada,353.174,,ind,205.19,3,
+large,ind,mono,10M,23 may,Ada,1177.883,,ind,97.39,3,
+large,ind,mono,30M,23 may,Ada,2412.9054,,ind,58.06,3,$1.5/hr=(with GPU A10G ($1.12 / h) + 16 GiB RAM
+large,ind,mono,50M,24 may,Ada,1512.8614,,ind,49.1,3,$2.5/hr=(with GPU A100-40GB ($2.10 / h) + 16 GiB RAM --> previous ones terminated without results
+large,eng-nld,90-10,50M,,judith,5333,,eng,45.53,3,L4
+large,eng-nld,90-10,50M,,judith,5333,,nld,98.94,3,L4
+large,eng-nld,70-30,50M,,judith,5342,,eng,48.95,3,L4
+large,eng-nld,70-30,50M,,judith,5342,,nld,64.66,3,L4
+large,eng-nld,50-50,50M,,judith,5369,,eng,53.98,3,L4
+large,eng-nld,50-50,50M,,judith,5369,,nld,49.96,3,L4
+large,eng-ind,90-10,50M,,Ada,1671.5523,,eng,45.68,3,
+large,eng-ind,90-10,50M,,Ada,1671.5523,,ind,94.73,3,
+large,eng-ind,70-30,50M,,Ada,1610.3785,,eng,49.13,3,
+large,eng-ind,70-30,50M,,Ada,1610.3785,,ind,69.36,3,
+large,eng-ind,50-50,50M,,Ada,1662.0817,,eng,54.60,3,
+large,eng-ind,50-50,50M,,Ada,1662.0817,,ind,59.76,3,
+small,nld,mono,1M,22 may,judith,,,nld,467.8,8,
+small,nld,mono,3M,22 may,judith,,,nld,219.24,8,
+small,nld,mono,10M,22 may,judith,,,nld,93.80,8,
+small,nld,mono,30M,23 may,judith,,,nld,48.64,8,
+small,nld,mono,50M,23 may,judith,,,nld,42.31,8,
+twelveMio,nld,mono,1M,23 may,judith,,,nld,1046.9,3,
+twelveMio,nld,mono,3M,23 may,judith,,,nld,550.44,3,
+twelveMio,nld,mono,10M,23 may,judith,,,nld,252.67,3,
+twelveMio,nld,mono,100M,23 may,judith,,,nld,109.17,3,
+twelveMio,eng-nld,50-50,10M,23 may,judith,,,eng,269.88,3,
+twelveMio,eng-nld,50-50,10M,23 may,judith,,,nld,347.79,3,
