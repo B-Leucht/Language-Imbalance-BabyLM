@@ -1,0 +1,57 @@
+[
+  {
+    "label": "val-eng90-dut10-s0",
+    "lang_b": "dut",
+    "seed": 0,
+    "ratio_eng": 0.9,
+    "ratio_b": 0.1,
+    "ppls": {
+      "eng": 71.96,
+      "dut": 111.94
+    }
+  },
+  {
+    "label": "val-eng90-ind10-s0",
+    "lang_b": "ind",
+    "seed": 0,
+    "ratio_eng": 0.9,
+    "ratio_b": 0.1,
+    "ppls": {
+      "eng": 71.77,
+      "ind": 133.39
+    }
+  },
+  {
+    "label": "val-eng90-dut10-s1",
+    "lang_b": "dut",
+    "seed": 1,
+    "ratio_eng": 0.9,
+    "ratio_b": 0.1,
+    "ppls": {
+      "eng": 68.19,
+      "dut": 121.25
+    }
+  },
+  {
+    "label": "val-eng90-ind10-s1",
+    "lang_b": "ind",
+    "seed": 1,
+    "ratio_eng": 0.9,
+    "ratio_b": 0.1,
+    "ppls": {
+      "eng": 68.18,
+      "ind": 129.23
+    }
+  },
+  {
+    "label": "val-eng90-dut10-s42",
+    "lang_b": "dut",
+    "seed": 42,
+    "ratio_eng": 0.9,
+    "ratio_b": 0.1,
+    "ppls": {
+      "eng": 61.96,
+      "dut": 159.27
+    }
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "label": "eng95-nld5",
+    "lang_a": "eng",
+    "lang_b": "dut",
+    "ratio_a": 0.95,
+    "ratio_b": 0.05,
+    "ppls": {
+      "eng": 83.05,
+      "dut": 339.11
+    }
+  },
+  {
+    "label": "eng99-nld1",
+    "lang_a": "eng",
+    "lang_b": "dut",
+    "ratio_a": 0.99,
+    "ratio_b": 0.01,
+    "ppls": {
+      "eng": 81.2,
+      "dut": 642.16
+    }
+  }
+]

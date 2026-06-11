@@ -1,0 +1,46 @@
+[
+  {
+    "label": "tri-eng33-dut33-ind33",
+    "ratio_eng": 0.3333333333333333,
+    "ratio_dut": 0.3333333333333333,
+    "ratio_ind": 0.3333333333333333,
+    "ppls": {
+      "eng": 128.51,
+      "dut": 162.12,
+      "ind": 129.05
+    }
+  },
+  {
+    "label": "tri-eng60-dut20-ind20",
+    "ratio_eng": 0.6,
+    "ratio_dut": 0.2,
+    "ratio_ind": 0.2,
+    "ppls": {
+      "eng": 102.63,
+      "dut": 197.97,
+      "ind": 153.41
+    }
+  },
+  {
+    "label": "tri-eng80-dut10-ind10",
+    "ratio_eng": 0.8,
+    "ratio_dut": 0.1,
+    "ratio_ind": 0.1,
+    "ppls": {
+      "eng": 90.0,
+      "dut": 257.01,
+      "ind": 190.9
+    }
+  },
+  {
+    "label": "tri-eng50-dut30-ind20",
+    "ratio_eng": 0.5,
+    "ratio_dut": 0.3,
+    "ratio_ind": 0.2,
+    "ppls": {
+      "eng": 109.74,
+      "dut": 167.82,
+      "ind": 153.11
+    }
+  }
+]

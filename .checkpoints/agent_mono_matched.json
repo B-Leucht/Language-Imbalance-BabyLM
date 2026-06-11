@@ -1,0 +1,122 @@
+[
+  {
+    "label": "mono-eng-1M",
+    "lang": "eng",
+    "csv_lang": "eng",
+    "tokens": 1000000,
+    "ppls": {
+      "eng": 1570.55
+    },
+    "ppl": 1570.55
+  },
+  {
+    "label": "mono-eng-5M",
+    "lang": "eng",
+    "csv_lang": "eng",
+    "tokens": 5000000,
+    "ppls": {
+      "eng": 407.88
+    },
+    "ppl": 407.88
+  },
+  {
+    "label": "mono-eng-10M",
+    "lang": "eng",
+    "csv_lang": "eng",
+    "tokens": 10000000,
+    "ppls": {
+      "eng": 251.12
+    },
+    "ppl": 251.12
+  },
+  {
+    "label": "mono-eng-50M",
+    "lang": "eng",
+    "csv_lang": "eng",
+    "tokens": 50000000,
+    "ppls": {
+      "eng": 81.04
+    },
+    "ppl": 81.04
+  },
+  {
+    "label": "mono-dut-1M",
+    "lang": "dut",
+    "csv_lang": "nld",
+    "tokens": 1000000,
+    "ppls": {
+      "dut": 1505.65
+    },
+    "ppl": 1505.65
+  },
+  {
+    "label": "mono-dut-5M",
+    "lang": "dut",
+    "csv_lang": "nld",
+    "tokens": 5000000,
+    "ppls": {
+      "dut": 502.45
+    },
+    "ppl": 502.45
+  },
+  {
+    "label": "mono-dut-10M",
+    "lang": "dut",
+    "csv_lang": "nld",
+    "tokens": 10000000,
+    "ppls": {
+      "dut": 314.71
+    },
+    "ppl": 314.71
+  },
+  {
+    "label": "mono-dut-50M",
+    "lang": "dut",
+    "csv_lang": "nld",
+    "tokens": 50000000,
+    "ppls": {
+      "dut": 86.23
+    },
+    "ppl": 86.23
+  },
+  {
+    "label": "mono-ind-1M",
+    "lang": "ind",
+    "csv_lang": "ind",
+    "tokens": 1000000,
+    "ppls": {
+      "ind": 1055.2
+    },
+    "ppl": 1055.2
+  },
+  {
+    "label": "mono-ind-5M",
+    "lang": "ind",
+    "csv_lang": "ind",
+    "tokens": 5000000,
+    "ppls": {
+      "ind": 326.49
+    },
+    "ppl": 326.49
+  },
+  {
+    "label": "mono-ind-10M",
+    "lang": "ind",
+    "csv_lang": "ind",
+    "tokens": 10000000,
+    "ppls": {
+      "ind": 220.41
+    },
+    "ppl": 220.41
+  },
+  {
+    "label": "mono-ind-50M",
+    "lang": "ind",
+    "csv_lang": "ind",
+    "tokens": 50000000,
+    "ppls": {
+      "ind": 83.27
+    },
+    "ppl": 83.27
+  }
+]
