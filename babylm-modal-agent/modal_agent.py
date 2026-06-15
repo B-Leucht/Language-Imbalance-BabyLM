@@ -30,7 +30,7 @@ image = (
     )
     .add_local_file("train.py", "/root/train.py")
     .add_local_file("large_config.json", "/root/large_config.json")
-    .add_local_file("small_config.json", "/root/small_config.json")
+    #.add_local_file("small_config.json", "/root/small_config.json")
     .add_local_dir("shared_tokenizer", "/root/shared_tokenizer")
 )
 
@@ -115,7 +115,7 @@ def run_mono_trial(
     cmd = [
         "python", "/root/train.py",
         "--dataset", LANG_TO_DATASET[lang],
-        "--config", "/root/small_config.json", #change config size
+        "--config", "/root/large_config.json", #change config size
         "--tokenizer_dir", "/root/shared_tokenizer",
         "--output_dir", output_dir,
         "--model_name", run_name,
