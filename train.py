@@ -21,6 +21,7 @@ import random
 import numpy as np
 import torch
 import math
+import json
 
 torch.set_float32_matmul_precision("high")
 if torch.backends.mps.is_available():
@@ -284,6 +285,12 @@ def main():
 
     print("Running per-language evaluation...")
     evaluate_per_language(trainer, tokenized_per_lang_eval)
+    #every run saves perplexity
+    eval_path = os.path.join(args.output_dir, "per_language_eval.json")
+    with open(eval_path, "w") as f:
+    json.dump(eval_results, f, indent=2)
+
+    print(f"Saved eval results to {eval_path}")
 
     if args.push_to_hub:
         print("☁️ Pushing to Hugging Face Hub...")
