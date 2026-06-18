@@ -282,6 +282,114 @@ def run_bilingual_trial(
 
     return metrics
 
+@app.function(
+    image=image,
+    volumes={"/results": volume},
+    timeout=30 * 60,
+)
+def save_combined_metrics(results: list):
+    from pathlib import Path
+    import json
+
+    summary_dir = Path("/results/experiment_summaries")
+    summary_dir.mkdir(parents=True, exist_ok=True)
+
+    mono_by_lang = {}
+    bilingual_results = []
+
+    for result in results:
+        if result.get("lang"):
+            mono_by_lang[result["lang"]] = result
+        elif result.get("langs"):
+            bilingual_results.append(result)
+
+    combined = {
+        "monolingual": mono_by_lang,
+        "bilingual": bilingual_results,
+        "teff": [],
+    }
+
+    for bilingual in bilingual_results:
+        langs = bilingual["langs"].split("-")
+
+        if len(langs) != 2:
+            continue
+
+        lang1, lang2 = langs
+
+        mono1 = mono_by_lang.get(lang1)
+        mono2 = mono_by_lang.get(lang2)
+
+        if mono1 is None or mono2 is None:
+            print(f"Skipping TEff for {bilingual['run_name']}: missing monolingual baseline.")
+            continue
+
+        lang1_mono_ppl = mono1.get(f"{lang1}_ppl")
+        lang2_mono_ppl = mono2.get(f"{lang2}_ppl")
+
+        lang1_bilingual_ppl = bilingual.get(f"{lang1}_ppl")
+        lang2_bilingual_ppl = bilingual.get(f"{lang2}_ppl")
+
+        lang1_ratio = bilingual.get(f"{lang1}_ratio")
+        lang2_ratio = bilingual.get(f"{lang2}_ratio")
+
+        if None in [
+            lang1_mono_ppl,
+            lang2_mono_ppl,
+            lang1_bilingual_ppl,
+            lang2_bilingual_ppl,
+            lang1_ratio,
+            lang2_ratio,
+        ]:
+            print(f"Skipping TEff for {bilingual['run_name']}: missing PPL or ratio.")
+            continue
+
+        lang1_teff = (lang1_mono_ppl / lang1_bilingual_ppl) / lang1_ratio
+        lang2_teff = (lang2_mono_ppl / lang2_bilingual_ppl) / lang2_ratio
+
+        teff_result = {
+            "bilingual_run_name": bilingual["run_name"],
+            "monolingual_baselines": {
+                lang1: mono1["run_name"],
+                lang2: mono2["run_name"],
+            },
+            lang1: {
+                "mono_ppl": lang1_mono_ppl,
+                "bilingual_ppl": lang1_bilingual_ppl,
+                "token_share": lang1_ratio,
+                "teff": lang1_teff,
+            },
+            lang2: {
+                "mono_ppl": lang2_mono_ppl,
+                "bilingual_ppl": lang2_bilingual_ppl,
+                "token_share": lang2_ratio,
+                "teff": lang2_teff,
+            },
+        }
+
+        combined["teff"].append(teff_result)
+
+        # Also save TEff directly into the bilingual model output folder.
+        bilingual_output_dir = Path(bilingual["output_dir"])
+        teff_path = bilingual_output_dir / "teff_summary.json"
+
+        with open(teff_path, "w") as f:
+            json.dump(teff_result, f, indent=2)
+
+        print(f"Saved TEff summary to {teff_path}")
+
+    combined_path = summary_dir / "combined_metrics.json"
+
+    with open(combined_path, "w") as f:
+        json.dump(combined, f, indent=2)
+
+    print(f"Saved combined metrics to {combined_path}")
+
+    volume.commit()
+
+    return combined
+
+
 #LOCAL ENTRYPOINT
 # Both RUN_BILINGUAL and RUN_MONOLINGUAL can be True in the same Modal run.
 
@@ -340,11 +448,23 @@ def main():
     #collect all results
     print(f"Started {len(jobs)} total Modal jobs.")
 
+    results = []
+
     for job_type, job in jobs:
         try:
             result = job.get()
             print(f"Finished {job_type}:")
             print(result)
+            results.append(result)
         except Exception as e:
             print(f"Failed {job_type}:")
             print(e)
+<<<<<<< Updated upstream
+=======
+
+    #calculate and save TEff only if matching bilingual + monolingual results exist in the same run
+    if results:
+        combined = save_combined_metrics.remote(results)
+        print("Combined metrics:")
+        print(json.dumps(combined, indent=2))
+>>>>>>> Stashed changes
