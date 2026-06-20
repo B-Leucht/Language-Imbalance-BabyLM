@@ -288,7 +288,7 @@ def main():
     #every run saves perplexity
     eval_path = os.path.join(args.output_dir, "per_language_eval.json")
     with open(eval_path, "w") as f:
-    json.dump(eval_results, f, indent=2)
+        json.dump(eval_results, f, indent=2)
 
     print(f"Saved eval results to {eval_path}")
 
