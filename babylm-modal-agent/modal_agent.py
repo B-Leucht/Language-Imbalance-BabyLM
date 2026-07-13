@@ -459,12 +459,9 @@ def main():
         except Exception as e:
             print(f"Failed {job_type}:")
             print(e)
-<<<<<<< Updated upstream
-=======
 
     #calculate and save TEff only if matching bilingual + monolingual results exist in the same run
     if results:
         combined = save_combined_metrics.remote(results)
         print("Combined metrics:")
         print(json.dumps(combined, indent=2))
->>>>>>> Stashed changes
