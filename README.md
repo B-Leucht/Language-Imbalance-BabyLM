@@ -1,3 +1,15 @@
+## Overview
+This repository relates to the training pipeline that was used in our research work 'When Less is More: How Language Imbalance Helps Low-Resource Languages in a BabyLM Setting'. The initial code structure was forked from the multilingual training repository, made available by the BabyLM community, as described below. 
+
+Monolingual and multilingual training can be started via experiments.ipynb. 
+We included the shared tokenizer (shared_tokenizer) that was used along our experiments and is computed across the following four languages, that are part of the BabyBabelLM corpora:
+- English (https://huggingface.co/datasets/BabyLM-community/babylm-eng)
+- Dutch (https://huggingface.co/datasets/BabyLM-community/babylm-nld)
+- Indonesian (https://huggingface.co/datasets/BabyLM-community/babylm-ind)
+- Javanese (https://huggingface.co/datasets/BabyLM-community/babylm-jav)
+
+
+
 ## Multilingual BabyLM Training
 This repository provides a simple script for training baseline models on the BabyBabelLM corpora.
 
